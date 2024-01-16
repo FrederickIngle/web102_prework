@@ -54,13 +54,13 @@ function addGamesToPage(games) {
         `;
 
         // append the game to the games-container
-        games-container.appendChild(game_card);
+        gamesContainer.appendChild(game_card);
     }
 
 }
 
 // call the function we just defined using the correct variable
-addGamesToPage(GAMES_DATA);
+addGamesToPage(GAMES_JSON);
 // later, we'll call this function using a different list of games
 
 
@@ -74,19 +74,28 @@ addGamesToPage(GAMES_DATA);
 const contributionsCard = document.getElementById("num-contributions");
 
 // use reduce() to count the number of total contributions by summing the backers
-
+const totalContributions = GAMES_JSON.reduce((accumulator, game)=>{
+    return accumulator + game.backers;
+},0);
 
 // set the inner HTML using a template literal and toLocaleString to get a number with commas
+contributionsCard.innerHTML = `Total Contributions: ${totalContributions.toLocaleString()}`;
 
 
 // grab the amount raised card, then use reduce() to find the total amount raised
 const raisedCard = document.getElementById("total-raised");
+const totalPledged = GAMES_JSON.reduce((accumulator, game)=>{
+    return accumulator + game.pledged;
+},0);
 
 // set inner HTML using template literal
+raisedCard.innerHTML = `Total Pledged: $ ${totalPledged.toLocaleString()}`;
 
 
 // grab number of games card and set its inner HTML
 const gamesCard = document.getElementById("num-games");
+const totalGames = GAMES_JSON.length;
+gamesCard.textContent = `Total Number of Games: ${totalGames}`;
 
 
 /*************************************************************************************
